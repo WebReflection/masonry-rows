@@ -1,6 +1,6 @@
 {
   "name": "masonry-rows",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "A Custom Element that delivers masonry grid layout to most common browsers",
   "main": "./cjs/index.js",
   "scripts": {
@@ -10,7 +10,11 @@
     "rollup:babel": "rollup --config rollup/babel.config.js && sed -i.bck 's/^var /self./' index.js && rm -rf index.js.bck",
     "min": "terser index.js --comments='/^!/' -c -m -o min.js"
   },
-  "keywords": ["masonry", "custom", "element"],
+  "keywords": [
+    "masonry",
+    "custom",
+    "element"
+  ],
   "author": "Andrea Giammarchi",
   "license": "ISC",
   "devDependencies": {
