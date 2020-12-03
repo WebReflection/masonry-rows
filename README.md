@@ -2,6 +2,8 @@
 
 A *Custom Element* fully inspired by [A Lightweight Masonry Solution](https://css-tricks.com/a-lightweight-masonry-solution/) article.
 
+**[Live Demo](https://codepen.io/WebReflection/pen/RwGravV?editors=0100)**
+
 ```html
 <script async src="//unpkg.com/masonry-rows"></script>
 <!--
