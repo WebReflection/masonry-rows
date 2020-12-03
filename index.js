@@ -247,9 +247,7 @@
               _this.dataset.columns = columns;
 
               for (var _i = 0; _i < length; _i++) {
-                var _child = items[_i];
-
-                _child.style.removeProperty('margin-top');
+                items[_i].style.removeProperty('margin-top');
               }
 
               if (1 < columns) {

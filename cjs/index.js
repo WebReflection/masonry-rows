@@ -92,10 +92,8 @@ customElements.define('masonry-rows', class extends HTMLElement {
         }
         if (mod || this.dataset.columns != columns) {
           this.dataset.columns = columns;
-          for (let i = 0; i < length; i++) {
-            const child = items[i];
-            child.style.removeProperty('margin-top');
-          }
+          for (let i = 0; i < length; i++)
+            items[i].style.removeProperty('margin-top');
           if (1 < columns) {
             const gap = parseFloat(gridRowGap);
             for (let i = columns; i < length; i++) {
