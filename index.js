@@ -209,7 +209,7 @@
 
         if (injectCSS) {
           injectCSS = false;
-          ownerDocument.head.appendChild(ownerDocument.createElement('style')).textContent = "@supports (display: grid) {\n        masonry-rows, .masonry-rows {\n          --gap: .5em;\n          --min-width: 20em;\n          --width: minmax(min(var(--min-width), 100%), 1fr);\n          box-sizing: inherit;\n          margin: 0;\n          display: grid;\n          grid-template-columns: repeat(auto-fit, var(--width));\n          grid-template-rows: masonry;\n          justify-content: center;\n          grid-gap: var(--gap);\n          padding: var(--gap);\n        }\n        masonry-rows > *, .masonry-rows > * { align-self: start }\n      }";
+          ownerDocument.head.appendChild(ownerDocument.createElement('style')).textContent = ['@supports(display:grid){', 'masonry-rows,.masonry-rows{', '--gap:.5em;', '--min-width:20em;', '--width:minmax(min(var(--min-width),100%),1fr);', 'box-sizing:inherit;', 'margin:0;', 'display:grid;', 'grid-template-columns:repeat(auto-fit,var(--width));', 'grid-template-rows:masonry;', 'justify-content:center;', 'grid-gap:var(--gap);', 'padding:var(--gap)', '}', 'masonry-rows>*,.masonry-rows>*{align-self:start}', '}'].join('');
         }
 
         var addListener = patched.has(this);
@@ -228,7 +228,8 @@
                 gridTemplateColumns = _computed2.gridTemplateColumns;
 
             var columns = gridTemplateColumns.split(/\s+/).length;
-            var items = _this.items,
+            var dataset = _this.dataset,
+                items = _this.items,
                 length = items.length;
 
             for (var i = 0; i < length; i++) {
@@ -243,8 +244,8 @@
               }
             }
 
-            if (mod || _this.dataset.columns != columns) {
-              _this.dataset.columns = columns;
+            if (mod || dataset.columns != columns) {
+              dataset.columns = columns;
 
               for (var _i = 0; _i < length; _i++) {
                 items[_i].style.removeProperty('margin-top');

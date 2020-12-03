@@ -56,22 +56,24 @@ customElements.define('masonry-rows', class extends HTMLElement {
       injectCSS = false;
       ownerDocument.head.appendChild(
         ownerDocument.createElement('style')
-      ).textContent = `@supports (display: grid) {
-        masonry-rows, .masonry-rows {
-          --gap: .5em;
-          --min-width: 20em;
-          --width: minmax(min(var(--min-width), 100%), 1fr);
-          box-sizing: inherit;
-          margin: 0;
-          display: grid;
-          grid-template-columns: repeat(auto-fit, var(--width));
-          grid-template-rows: masonry;
-          justify-content: center;
-          grid-gap: var(--gap);
-          padding: var(--gap);
-        }
-        masonry-rows > *, .masonry-rows > * { align-self: start }
-      }`;
+      ).textContent = [
+        '@supports(display:grid){',
+          'masonry-rows,.masonry-rows{',
+            '--gap:.5em;',
+            '--min-width:20em;',
+            '--width:minmax(min(var(--min-width),100%),1fr);',
+            'box-sizing:inherit;',
+            'margin:0;',
+            'display:grid;',
+            'grid-template-columns:repeat(auto-fit,var(--width));',
+            'grid-template-rows:masonry;',
+            'justify-content:center;',
+            'grid-gap:var(--gap);',
+            'padding:var(--gap)',
+          '}',
+          'masonry-rows>*,.masonry-rows>*{align-self:start}',
+        '}'
+      ].join('');
     }
     let addListener = patched.has(this);
     const {display, gridTemplateRows} = computed(this);
@@ -81,7 +83,7 @@ customElements.define('masonry-rows', class extends HTMLElement {
         let mod = false;
         const {gridRowGap, gridTemplateColumns} = computed(this);
         const columns = gridTemplateColumns.split(/\s+/).length;
-        const {items} = this, {length} = items;
+        const {dataset, items} = this, {length} = items;
         for (let i = 0; i < length; i++) {
           const child = items[i];
           const {height} = child.getBoundingClientRect();
@@ -90,8 +92,8 @@ customElements.define('masonry-rows', class extends HTMLElement {
             mod = true;
           }
         }
-        if (mod || this.dataset.columns != columns) {
-          this.dataset.columns = columns;
+        if (mod || dataset.columns != columns) {
+          dataset.columns = columns;
           for (let i = 0; i < length; i++)
             items[i].style.removeProperty('margin-top');
           if (1 < columns) {
