@@ -162,13 +162,11 @@
   var patched = new WeakMap();
 
   var computed = function computed(self) {
-    var defaultView = self.ownerDocument.defaultView;
-    return defaultView.getComputedStyle(self);
+    return view(self).getComputedStyle(self);
   };
 
   var listener = function listener(method, self) {
-    var defaultView = self.ownerDocument.defaultView;
-    defaultView[method + 'EventListener']('resize', patched.get(self));
+    view(self)[method + 'EventListener']('resize', patched.get(self));
   };
 
   var notColumnEnd = function notColumnEnd(child) {
@@ -182,6 +180,11 @@
     } else self.style.removeProperty(property);
 
     if (patched.has(self)) patched.get(self)();
+  };
+
+  var view = function view(_ref) {
+    var defaultView = _ref.ownerDocument.defaultView;
+    return defaultView;
   };
 
   customElements.define('masonry-rows', /*#__PURE__*/function (_HTMLElement) {

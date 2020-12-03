@@ -4,14 +4,10 @@ const {filter} = [];
 
 const patched = new WeakMap;
 
-const computed = self => {
-  const {ownerDocument: {defaultView}} = self;
-  return defaultView.getComputedStyle(self);
-};
+const computed = self => view(self).getComputedStyle(self);
 
 const listener = (method, self) => {
-  const {ownerDocument: {defaultView}} = self;
-  defaultView[method + 'EventListener']('resize', patched.get(self));
+  view(self)[method + 'EventListener']('resize', patched.get(self));
 };
 
 const notColumnEnd = child => computed(child).gridColumnEnd != -1;
@@ -26,6 +22,8 @@ const setProperty = (self, property, value) => {
   if (patched.has(self))
     patched.get(self)();
 };
+
+const view = ({ownerDocument: {defaultView}}) => defaultView;
 
 customElements.define('masonry-rows', class extends HTMLElement {
   static get observedAttributes() {
