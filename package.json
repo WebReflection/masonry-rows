@@ -1,7 +1,7 @@
 {
   "name": "masonry-rows",
   "version": "0.0.2",
-  "description": "",
+  "description": "A Custom Element that delivers masonry grid layout to most common browsers",
   "main": "./cjs/index.js",
   "scripts": {
     "build": "npm run cjs && npm run rollup:es && npm run rollup:babel && npm run min && npm run test",
@@ -10,8 +10,8 @@
     "rollup:babel": "rollup --config rollup/babel.config.js && sed -i.bck 's/^var /self./' index.js && rm -rf index.js.bck",
     "min": "terser index.js --comments='/^!/' -c -m -o min.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["masonry", "custom", "element"],
+  "author": "Andrea Giammarchi",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.12.9",
@@ -32,5 +32,16 @@
     },
     "./package.json": "./package.json"
   },
-  "unpkg": "min.js"
+  "unpkg": "min.js",
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WebReflection/masonry-rows.git"
+  },
+  "bugs": {
+    "url": "https://github.com/WebReflection/masonry-rows/issues"
+  },
+  "homepage": "https://github.com/WebReflection/masonry-rows#readme"
 }
